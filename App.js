@@ -1,31 +1,35 @@
 import React, { useState } from "react";
-import { StyleSheet, Text, View, FlatList } from "react-native";
+import { StyleSheet, Text, View, FlatList, TouchableOpacity } from "react-native";
 
 export default function App() {
     const [people, setPeople] = useState([
-        { name: "Maxime", key: "1" },
-        { name: "Louise", key: "2" },
-        { name: "Noëlla", key: "3" },
-        { name: "Anthony", key: "4" },
-        { name: "Olivier", key: "5" },
-        { name: "Catherine", key: "6" },
+        { name: "Maxime", id: "1" },
+        { name: "Louise", id: "2" },
+        { name: "Noëlla", id: "3" },
+        { name: "Anthony", id: "4" },
+        { name: "Olivier", id: "5" },
+        { name: "Catherine", id: "6" },
     ]);
+
+    const pressHandler = (id) => {
+        console.log(id);
+        setPeople((prevPeople) => {
+            return prevPeople.filter((person) => person.id != id);
+        });
+    };
 
     return (
         <View style={styles.container}>
             <FlatList
                 data={people}
-                renderItem={(item) => {
-                    return <Text style={styles.item}>name:{item.name}</Text>;
-                }}
-            />
-            {/* <ScrollView>
-                {people.map((item) => (
-                    <View key={item.key}>
+                renderItem={({ item }) => (
+                    <TouchableOpacity onPress={() => pressHandler(item.id)}>
                         <Text style={styles.item}>{item.name}</Text>
-                    </View>
-                ))}
-            </ScrollView> */}
+                    </TouchableOpacity>
+                )}
+                keyExtractor={(item) => item.id}
+                numColumns={2}
+            />
         </View>
     );
 }
@@ -39,8 +43,10 @@ const styles = StyleSheet.create({
     },
     item: {
         marginTop: 24,
-        padding: 60,
+        padding: 30,
         backgroundColor: "green",
         fontSize: 24,
+        marginHorizontal: 10,
+        marginTop: 24,
     },
 });
