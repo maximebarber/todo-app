@@ -9,6 +9,7 @@ export default function App() {
         { name: "Anthony", id: "4" },
         { name: "Olivier", id: "5" },
         { name: "Catherine", id: "6" },
+        { name: "Mark", id: "7" },
     ]);
 
     const pressHandler = (id) => {
